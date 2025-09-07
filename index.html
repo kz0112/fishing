@@ -514,11 +514,19 @@
     })();
 
     // ====== Дыбыспен оқу ======
-    document.getElementById('speak').addEventListener('click', ()=>{
-      const msg = new SpeechSynthesisUtterance('Фишингке алданба! Алдымен тоқта, сосын ойлан, қажет болса сұра!');
-      msg.lang = 'kk-KZ';
-      window.speechSynthesis.speak(msg);
-    })
+    const synth = window.speechSynthesis;
+document.getElementById('speak').addEventListener('click', () => {
+  const msg = new SpeechSynthesisUtterance('Фишингке алданба! Алдымен тоқта, сосын ойлан, қажет болса сұра!');
+  msg.lang = 'kk-KZ';
+
+  // Қол жетімді дауыстарды шығару
+  const voices = synth.getVoices();
+  const kzVoice = voices.find(v => v.lang === 'kk-KZ');
+  if (kzVoice) msg.voice = kzVoice;
+
+  synth.speak(msg);
+});
+
 
     // ====== Ойын: Drag & Drop ======
     const MAILS = [
@@ -700,4 +708,5 @@
   </script>
 </body>
 </html>
+
 
