@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Фишингтен сақтан! — 1–7 сыныпқа</title>
+  <title>Фишингтен сақтан!</title>
   <style>
     :root{
       --bg: #F9FBFF;
@@ -82,6 +82,15 @@
     .stack{ display:flex; flex-direction: column; gap:12px; }
     .win{ font-size: 18px; font-weight: 900; padding: 8px 12px; background: #E0F2FE; border-radius: 12px; display:none; }
 
+    #pollSection { display:flex; flex-direction:column; gap:20px; margin-top:20px; }
+.poll-card { padding:20px; }
+.poll-card .q { font-weight:bold; margin-bottom:10px; }
+.poll-card form { display:flex; flex-direction:column; gap:10px; }
+.poll-card label { background:#fff; border:2px solid #ddd; border-radius:10px; padding:10px; cursor:pointer; transition:0.3s; }
+.poll-card label:hover { border-color:#0d6efd; transform:translateY(-3px); box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+.poll-card button { padding:8px 14px; border:none; border-radius:8px; background:#0d6efd; color:#fff; cursor:pointer; margin-top:10px; }
+.pollResult { margin-top:10px; font-weight:bold; padding:10px; border-radius:8px; background:#f1f1f1; border:1px dashed #ccc; }
+
     /* Quiz */
     .q{ font-weight: 900; font-size: 22px; }
     .answers{ display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
@@ -105,7 +114,7 @@
     <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap: 12px;">
       <div class="brand">
         <div class="logo-bubble float">🛡️</div>
-        <div>Фишингтен сақтан! <span style="font-size:14px; font-weight:700; opacity:.6">(1–7 сынып)</span></div>
+        <div>Фишингтен сақтан!</div>
       </div>
       <nav id="tabs"></nav>
     </div>
@@ -448,6 +457,39 @@
         <div class="score" id="score">Ұпай: 0</div>
         <button class="btn btn-primary" id="retry">Қайта бастау 🔄</button>
       </div>
+
+      <div class="card poll-card">
+        <div class="q">1. Қайсысы ресми пошта сайты?</div>
+        <form class="pollForm">
+          <label><input type="radio" name="site1" value="kazpost-good"> ✅ www.kazpost.kz</label>
+          <label><input type="radio" name="site1" value="kazpost-bad1"> ❌ qazpost.kz-send.cyou</label>
+          <label><input type="radio" name="site1" value="kazpost-bad2"> ❌ qazpost-delivery.info</label>
+          <button type="submit">Дауыс беру</button>
+        </form>
+        <div class="pollResult"></div>
+      </div>
+      
+      <div class="card poll-card">
+        <div class="q">2. Қайсысы ресми жұмыс порталы?</div>
+        <form class="pollForm">
+          <label><input type="radio" name="site2" value="work-good"> ✅ www.workin.kz</label>
+          <label><input type="radio" name="site2" value="work-bad1"> ❌ www.work-from-home.kz</label>
+          <label><input type="radio" name="site2" value="work-bad2"> ❌ www.job-kz-free.com</label>
+          <button type="submit">Дауыс беру</button>
+        </form>
+        <div class="pollResult"></div>
+      </div>
+      
+      <div class="card poll-card">
+        <div class="q">3. Қайсысы ресми ойын сайты?</div>
+        <form class="pollForm">
+          <label><input type="radio" name="site3" value="game-good"> ✅ www.freefire.com</label>
+          <label><input type="radio" name="site3" value="game-bad1"> ❌ www.free-fire-accounts.kz</label>
+          <label><input type="radio" name="site3" value="game-bad2"> ❌ www.freefire-hack.xyz</label>
+          <button type="submit">Дауыс беру</button>
+        </form>
+        <div class="pollResult"></div>
+      </div>      
     </section>
 
    
@@ -511,6 +553,19 @@
         if(i>text.length) clearInterval(timer);
       }, 25);
     })();
+
+    // Дауыс тізімін шығару
+const synth = window.speechSynthesis;
+
+function populateVoices() {
+  const voices = synth.getVoices();
+  console.log("Барлық дауыстар:", voices);
+}
+
+populateVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoices;
+}
 
 
 
@@ -590,7 +645,6 @@
       if(allPlaced){ win.style.display='block'; confettiSplash(true); }
       else { win.style.display='none'; }
     }
-
     let touchItem = null;
 
 document.addEventListener("touchstart", function(ev) {
@@ -644,7 +698,6 @@ document.addEventListener("touchend", function(ev) {
 
   checkWin();
 }, {passive: true});
-
     // ====== Тест ======
     const QUESTIONS = [
   {q:'Фишинг деген не?', a:['Жалған алдау','Дәмді балық','Сурет салу'], good:0},
@@ -691,6 +744,50 @@ document.addEventListener("touchend", function(ev) {
 
     renderQ();
     retryEl.addEventListener('click', ()=>{ score=0; step=0; scoreEl.textContent='Ұпай: 0'; renderQ(); })
+
+    const SITES = {
+  "site1": [
+    { name: 'www.kazpost.kz', safe: true, desc: 'Ресми Қазпошта сайты, қауіпсіз. 🔒' },
+    { name: 'qazpost.kz-send.cyou', safe: false, desc: 'Фишинг сайты! Жеке деректерді берме. ❌' },
+    { name: 'qazpost-delivery.info', safe: false, desc: 'Жалған пошта сайты, ақпарат беруге болмайды. ⚠️' }
+  ],
+  "site2": [
+    { name: 'www.workin.kz', safe: true, desc: 'Ресми жұмыс портал, қауіпсіз. 👍' },
+    { name: 'www.work-from-home.kz', safe: false, desc: 'Жалған жұмыс ұсыныстары, жеке деректерді бермеңіз. ❌' },
+    { name: 'www.job-kz-free.com', safe: false, desc: 'Фишинг сайты. ⚠️' }
+  ],
+  "site3": [
+    { name: 'www.freefire.com', safe: true, desc: 'Ресми ойын сайты, қауіпсіз. 🎮' },
+    { name: 'www.free-fire-accounts.kz', safe: false, desc: 'Жалған ойын аккаунттары, ақпарат бермеңіз. ❌' },
+    { name: 'www.freefire-hack.xyz', safe: false, desc: 'Фишинг/алаяқтық сайты. ⚠️' }
+  ]
+};
+
+document.querySelectorAll('.pollForm').forEach(form => {
+  form.addEventListener('submit', e => {
+    e.preventDefault(); // бет қайта жүктелуін тоқтату
+    const selected = form.querySelector('input[type="radio"]:checked');
+    const resultDiv = form.nextElementSibling;
+    
+    if (!selected) {
+      resultDiv.textContent = '❌ Бір нұсқаны таңдаңыз!';
+      return;
+    }
+
+    const correctAnswers = {
+      site1: 'bank-good',
+      site2: 'shop-good',
+      site3: 'social-good'
+    };
+
+    const name = selected.name;
+    if (selected.value === correctAnswers[name]) {
+      resultDiv.textContent = '✅ Дұрыс! Бұл ресми сайт, сенімді.';
+    } else {
+      resultDiv.textContent = '⚠️ Қате! Бұл сайт фишинг болуы мүмкін. Домені мен URL-ді тексер.';
+    }
+  });
+});
 
     // ====== Конфетти (vanilla canvas) ======
     const c = document.getElementById('confetti');
@@ -748,5 +845,3 @@ document.addEventListener("touchend", function(ev) {
   </script>
 </body>
 </html>
-
-
