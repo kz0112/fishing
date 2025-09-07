@@ -461,9 +461,9 @@
       <div class="card poll-card">
         <div class="q">1. Қайсысы ресми пошта сайты?</div>
         <form class="pollForm">
-          <label><input type="radio" name="site1" value="kazpost-good"> ✅ www.kazpost.kz</label>
-          <label><input type="radio" name="site1" value="kazpost-bad1"> ❌ qazpost.kz-send.cyou</label>
-          <label><input type="radio" name="site1" value="kazpost-bad2"> ❌ qazpost-delivery.info</label>
+          <label><input type="radio" name="site1" value="kazpost-good"> www.kazpost.kz</label>
+          <label><input type="radio" name="site1" value="kazpost-bad1"> qazpost.kz-send.cyou</label>
+          <label><input type="radio" name="site1" value="kazpost-bad2"> qazpost-delivery.info</label>
           <button type="submit">Дауыс беру</button>
         </form>
         <div class="pollResult"></div>
@@ -472,9 +472,9 @@
       <div class="card poll-card">
         <div class="q">2. Қайсысы ресми жұмыс порталы?</div>
         <form class="pollForm">
-          <label><input type="radio" name="site2" value="work-good"> ✅ www.workin.kz</label>
-          <label><input type="radio" name="site2" value="work-bad1"> ❌ www.work-from-home.kz</label>
-          <label><input type="radio" name="site2" value="work-bad2"> ❌ www.job-kz-free.com</label>
+          <label><input type="radio" name="site2" value="work-good"> www.workin.kz</label>
+          <label><input type="radio" name="site2" value="work-bad1"> www.work-from-home.kz</label>
+          <label><input type="radio" name="site2" value="work-bad2"> www.job-kz-free.com</label>
           <button type="submit">Дауыс беру</button>
         </form>
         <div class="pollResult"></div>
@@ -483,9 +483,9 @@
       <div class="card poll-card">
         <div class="q">3. Қайсысы ресми ойын сайты?</div>
         <form class="pollForm">
-          <label><input type="radio" name="site3" value="game-good"> ✅ www.freefire.com</label>
-          <label><input type="radio" name="site3" value="game-bad1"> ❌ www.free-fire-accounts.kz</label>
-          <label><input type="radio" name="site3" value="game-bad2"> ❌ www.freefire-hack.xyz</label>
+          <label><input type="radio" name="site3" value="game-good"> www.freefire.com</label>
+          <label><input type="radio" name="site3" value="game-bad1"> www.free-fire-accounts.kz</label>
+          <label><input type="radio" name="site3" value="game-bad2"> www.freefire-hack.xyz</label>
           <button type="submit">Дауыс беру</button>
         </form>
         <div class="pollResult"></div>
@@ -775,10 +775,10 @@ document.querySelectorAll('.pollForm').forEach(form => {
     }
 
     const correctAnswers = {
-      site1: 'bank-good',
-      site2: 'shop-good',
-      site3: 'social-good'
-    };
+  site1: 'kazpost-good',
+  site2: 'work-good',
+  site3: 'game-good'
+};
 
     const name = selected.name;
     if (selected.value === correctAnswers[name]) {
