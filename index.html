@@ -120,7 +120,6 @@
         <div class="big-cta">
           <button class="btn btn-primary" data-open="turleri">Түрлерін көр 👀</button>
           <button class="btn btn-ghost" data-open="korganu">Қалай қорғанамыз? 🛡️</button>
-          <button class="btn btn-ghost" id="speak">🔊 Дыбыс</button>
         </div>
       </div>
       <div class="card mascot">
@@ -513,18 +512,6 @@
       }, 25);
     })();
 
-    const synth = window.speechSynthesis;
-document.getElementById('speak').addEventListener('click', () => {
-  const msg = new SpeechSynthesisUtterance('Интернетте қауіпсіз болайық! Фишинг — жаман айла. Тоқта, ойлан, сұра!');
-  msg.lang = 'kk-KZ';
-
-  // Қол жетімді дауыстарды шығару
-  const voices = synth.getVoices();
-  const kzVoice = voices.find(v => v.lang === 'kk-KZ');
-  if (kzVoice) msg.voice = kzVoice;
-
-  synth.speak(msg);
-});
 
 
     // ====== Ойын: Drag & Drop ======
@@ -707,3 +694,4 @@ document.getElementById('speak').addEventListener('click', () => {
   </script>
 </body>
 </html>
+
