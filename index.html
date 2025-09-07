@@ -591,6 +591,60 @@
       else { win.style.display='none'; }
     }
 
+    let touchItem = null;
+
+document.addEventListener("touchstart", function(ev) {
+  const target = ev.target.closest(".mail");
+  if (!target) return;
+  touchItem = target;
+  touchItem.classList.add("dragging");
+}, {passive: true});
+
+document.addEventListener("touchmove", function(ev) {
+  if (!touchItem) return;
+  const touch = ev.touches[0];
+  touchItem.style.position = "absolute";
+  touchItem.style.left = touch.pageX - 50 + "px";
+  touchItem.style.top = touch.pageY - 30 + "px";
+  touchItem.style.zIndex = 1000;
+}, {passive: true});
+
+document.addEventListener("touchend", function(ev) {
+  if (!touchItem) return;
+
+  const bins = document.querySelectorAll(".bin");
+  let dropped = false;
+
+  bins.forEach(bin => {
+    const rect = bin.getBoundingClientRect();
+    const x = ev.changedTouches[0].clientX;
+    const y = ev.changedTouches[0].clientY;
+
+    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+      const want = bin.dataset.type;
+      const got = touchItem.dataset.type;
+
+      if (want === got) {
+        bin.appendChild(touchItem);
+        celebrate(bin);
+      } else {
+        shake(touchItem);
+      }
+      dropped = true;
+    }
+  });
+
+  if (!dropped) {
+    touchItem.style.position = "static";
+  }
+
+  touchItem.classList.remove("dragging");
+  touchItem.style.zIndex = "";
+  touchItem = null;
+
+  checkWin();
+}, {passive: true});
+
     // ====== Тест ======
     const QUESTIONS = [
   {q:'Фишинг деген не?', a:['Жалған алдау','Дәмді балық','Сурет салу'], good:0},
@@ -694,4 +748,5 @@
   </script>
 </body>
 </html>
+
 
