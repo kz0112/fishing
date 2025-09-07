@@ -517,7 +517,7 @@
     const synth = window.speechSynthesis;
 document.getElementById('speak').addEventListener('click', () => {
   const msg = new SpeechSynthesisUtterance('Фишингке алданба! Алдымен тоқта, сосын ойлан, қажет болса сұра!');
-  msg.lang = 'kk-KZ';
+   msg.lang = 'kk-KZ';
 
   // Қол жетімді дауыстарды шығару
   const voices = synth.getVoices();
@@ -708,5 +708,6 @@ document.getElementById('speak').addEventListener('click', () => {
   </script>
 </body>
 </html>
+
 
 
