@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Фишингтен сақтан! — 1–2 сыныпқа</title>
+  <title>Фишингтен сақтан! — 1–7 сыныпқа</title>
   <style>
     :root{
       --bg: #F9FBFF;
@@ -116,7 +116,7 @@
     <div class="hero">
       <div class="card">
         <div class="title">Интернетте қауіпсіз болайық! ✨</div>
-        <p class="subtitle" id="typewriter">Балаларға түсінікті тілде фишинг туралы үйренеміз. Асықпа! Ойын ойнаймыз, тест тапсырамыз, анимация көөөп! 🎈</p>
+        <p class="subtitle" id="typewriter">Балаларға түсінікті тілде фишинг туралы үйренеміз. Асықпа! Ойын ойнаймыз, тест тапсырамыз, ақпарат көөөп! 🎈</p>
         <div class="big-cta">
           <button class="btn btn-primary" data-open="turleri">Түрлерін көр 👀</button>
           <button class="btn btn-ghost" data-open="korganu">Қалай қорғанамыз? 🛡️</button>
@@ -515,7 +515,7 @@
 
     // ====== Дыбыспен оқу ======
     document.getElementById('speak').addEventListener('click', ()=>{
-      const msg = new SpeechSynthesisUtterance('Интернетте қауіпсіз болайық! Фишинг — жаман айла. Тоқта, ойлан, сұра!');
+      const msg = new SpeechSynthesisUtterance('Фишингке алданба! Алдымен тоқта, сосын ойлан, қажет болса сұра!');
       msg.lang = 'kk-KZ';
       window.speechSynthesis.speak(msg);
     })
@@ -700,3 +700,4 @@
   </script>
 </body>
 </html>
+
